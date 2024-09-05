@@ -22,25 +22,30 @@ describe('RewardsCalculator Componet',() =>{
       expect (screen.getByText(/Loading.../)).toBeInTheDocument()
     });
     it('Should render rewards data correctly', async ()=> {
-        const mockData = [
-            {
-                customerId:'123', 
-                date:"2024-08-16",
-                transactionAmount:130,
-            }
-        ];
+        const mockTransactions= {
+            data:[
+                {
+                    customerId:100, 
+                    date:"2024-08-16",
+                    transactionAmount:130
+                }
+               ],
+        }
+    
 
+          
         fetch.mockImplementation(() =>
          Promise.resolve({
             ok:true,
-            jsonr: () =>Promise.resolve(mockData)
+            json: () =>Promise.resolve(mockTransactions)
          })
         );
 
         render(<RewardsCalculator/>);
         await waitFor (()=> {
-            expect(screen.getByText(/Customer:123/)).toBeInTheDocument();
-            expect(screen.getByText(/Transaction \(Last 3 Months1\):/)).toBeInTheDocument();
+            expect(screen.getByText(/Customer: 123/)).toBeInTheDocument();
+            expect(screen.getByText(/\$100.00/)).toBeInTheDocument();
+            expect(screen.getByText(/July 1, 2024/)).toBeInTheDocument();
         })
     })
 })
