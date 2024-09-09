@@ -14,10 +14,10 @@ const RewardsCalculator = () => {
         if (!response.ok) {
           throw new Error("Failed to load data");
         }
-        const data = await response.json();
+        const result= await response.json();
         //const data = myData;
-        setTransaction(data);
-        // console.log("Data===", data)
+        setTransaction(result || []);
+        console.log("Data===", result)
       } catch (err) {
         setError(err.message);
       } finally {
@@ -76,10 +76,10 @@ const RewardsCalculator = () => {
     <div className="rewards-container">
       <h1>Customer Rewards List</h1>
       <div className="rewards-list">
-        {Object?.entries(rewards).map(
+        {Object.entries(rewards).map(
           ([customerId, { monthlyPoints, totalPoints }]) => (
             <div key={customerId} className="customer-rewards card">
-              <h3>Customer : {customerId}</h3>
+              <h3>Customer: {customerId}</h3>
               <div className="rewards-sec">
                 <p className="rewards-heading">Total Rewards Points</p>
                 <p className="total-point">{totalPoints}</p>
