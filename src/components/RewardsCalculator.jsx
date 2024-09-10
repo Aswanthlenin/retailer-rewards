@@ -15,9 +15,10 @@ const RewardsCalculator = () => {
           throw new Error("Failed to load data");
         }
         const result= await response.json();
-        //const data = myData;
-        setTransaction(result || []);
         console.log("Data===", result)
+        // setTransaction(Array.isArray(result) ? result :[]);
+        setTransaction(result);
+        // console.log("Data===", result)
       } catch (err) {
         setError(err.message);
       } finally {
